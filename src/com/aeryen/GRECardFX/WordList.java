@@ -15,10 +15,13 @@ public class WordList {
 		String thisLine;
 		BufferedReader br = new BufferedReader(new FileReader(dataFile));
 		try {
+			list = new ArrayList<Word>(120);
 			while ((thisLine = br.readLine()) != null) {
-				System.out.println(thisLine);
+//				System.out.println(thisLine);
 				Word w = new Word(thisLine);
 				list.add(w);
+
+				w.multilinePrint();
 			}
 
 			System.out.println("A total of: " + list.size() + " is loaded from list: " + dataFile.getName() + ".");

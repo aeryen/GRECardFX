@@ -8,15 +8,20 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<GridPane alignment="center" vgap="10" hgap="10" stylesheets="/com/aeryen/GRECardFX/cardScene.css"
+<GridPane alignment="center" vgap="2" stylesheets="/com/aeryen/GRECardFX/cardScene.css"
           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="com.aeryen.GRECardFX.Controller">
+          fx:controller="com.aeryen.GRECardFX.CardController">
     <children>
-        <Label fx:id="detail" text="Incredible" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="4"/>
-        <Button fx:id="option1" prefHeight="17.0" text="磨损，刮除" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <Button fx:id="option2" prefHeight="17.0" text="并列地，并排地" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-        <Button fx:id="option3" prefHeight="17.0" text="删减；缩短" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-        <Button fx:id="option4" prefHeight="17.0" text="废止，废除" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+        <Label fx:id="detail" text="Incredible" GridPane.rowIndex="0" GridPane.columnIndex="0" prefHeight="120"
+               prefWidth="450"/>
+        <Button fx:id="option1" text="磨损，刮除" GridPane.rowIndex="1" GridPane.columnIndex="0" prefWidth="450"
+                onAction="#handleAnswer"/>
+        <Button fx:id="option2" text="并列地，并排地" GridPane.rowIndex="2" GridPane.columnIndex="0" prefWidth="450"
+                onAction="#handleAnswer"/>
+        <Button fx:id="option3" text="删减；缩短" GridPane.rowIndex="3" GridPane.columnIndex="0" prefWidth="450"
+                onAction="#handleAnswer"/>
+        <Button fx:id="option4" text="废止，废除" GridPane.rowIndex="4" GridPane.columnIndex="0" prefWidth="450"
+                onAction="#handleAnswer"/>
     </children>
     <columnConstraints>
         <ColumnConstraints/>

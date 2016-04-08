@@ -10,7 +10,7 @@
 
 <GridPane alignment="center" vgap="10" hgap="10" stylesheets="/com/aeryen/GRECardFX/listSelectionStyle.css"
           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="com.aeryen.GRECardFX.Controller">
+          fx:controller="com.aeryen.GRECardFX.CardController">
     <children>
         <Label fx:id="listSelectionLabel" text="Select a Vocab List:" GridPane.columnIndex="0" GridPane.columnSpan="5"
                GridPane.rowIndex="0"/>

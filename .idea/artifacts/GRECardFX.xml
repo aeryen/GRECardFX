@@ -1,0 +1,30 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="GRECardFX">
+    <output-path>$PROJECT_DIR$/out/artifacts/GRECardFX</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="alias" value="aeryen" />
+        <option name="appClass" value="com.aeryen.GRECardFX.Main" />
+        <option name="description" value="App and what not." />
+        <option name="htmlParamFile" value="" />
+        <option name="keypass" value="eXZvN2V5ZXMh" />
+        <option name="keystore" value="E:\DOC\Android_Key\aeryen-android-key.keystore" />
+        <option name="nativeBundle" value="dmg" />
+        <option name="paramFile" value="" />
+        <option name="selfSigning" value="false" />
+        <option name="storepass" value="YWVyeWVu" />
+        <option name="title" value="Stupid Card" />
+        <option name="updateMode" value="always" />
+        <option name="vendor" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="GRECardFX.jar">
+        <element id="module-output" name="GRECardFX" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

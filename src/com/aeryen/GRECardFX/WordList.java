@@ -13,7 +13,12 @@ public class WordList {
 
 	public WordList(File dataFile) throws FileNotFoundException {
 		String thisLine;
-		BufferedReader br = new BufferedReader(new FileReader(dataFile));
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(dataFile), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		try {
 			list = new ArrayList<Word>(120);
 			while ((thisLine = br.readLine()) != null) {

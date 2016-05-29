@@ -8,20 +8,21 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<GridPane alignment="center" vgap="2" stylesheets="/com/aeryen/GRECardFX/cardScene.css"
+<GridPane alignment="center" stylesheets="/com/aeryen/GRECardFX/cardScene.css" vgap="2"
           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="com.aeryen.GRECardFX.CardController">
     <children>
-        <Label fx:id="detail" text="Incredible" GridPane.rowIndex="0" GridPane.columnIndex="0" prefHeight="120"
-               prefWidth="450"/>
-        <Button fx:id="option1" text="磨损，刮除" GridPane.rowIndex="1" GridPane.columnIndex="0" prefWidth="450"
-                onAction="#handleAnswer"/>
-        <Button fx:id="option2" text="并列地，并排地" GridPane.rowIndex="2" GridPane.columnIndex="0" prefWidth="450"
-                onAction="#handleAnswer"/>
-        <Button fx:id="option3" text="删减；缩短" GridPane.rowIndex="3" GridPane.columnIndex="0" prefWidth="450"
-                onAction="#handleAnswer"/>
-        <Button fx:id="option4" text="废止，废除" GridPane.rowIndex="4" GridPane.columnIndex="0" prefWidth="450"
-                onAction="#handleAnswer"/>
+        <Label fx:id="detail" prefHeight="120" prefWidth="450" text="XXXXXXXXXX" GridPane.columnIndex="0"
+               GridPane.rowIndex="0"/>
+        <Button fx:id="option1" onAction="#handleAnswer" prefWidth="450" text="option 1" GridPane.columnIndex="0"
+                GridPane.rowIndex="1"/>
+        <Button fx:id="option2" onAction="#handleAnswer" prefWidth="450" text="option 2" GridPane.columnIndex="0"
+                GridPane.rowIndex="2"/>
+        <Button fx:id="option3" onAction="#handleAnswer" prefWidth="450" text="option 3" GridPane.columnIndex="0"
+                GridPane.rowIndex="3"/>
+        <Button fx:id="option4" onAction="#handleAnswer" prefWidth="450" text="option 4" GridPane.columnIndex="0"
+                GridPane.rowIndex="4"/>
+        <!--<Button text="close" GridPane.columnIndex="1" GridPane.rowIndex="0" />-->
     </children>
     <columnConstraints>
         <ColumnConstraints/>
@@ -29,8 +30,11 @@
         <ColumnConstraints/>
         <ColumnConstraints/>
         <ColumnConstraints/>
+        <ColumnConstraints/>
     </columnConstraints>
     <rowConstraints>
+        <RowConstraints/>
+        <RowConstraints/>
         <RowConstraints/>
         <RowConstraints/>
         <RowConstraints/>

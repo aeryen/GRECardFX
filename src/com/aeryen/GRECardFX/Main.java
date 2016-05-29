@@ -1,6 +1,7 @@
 package com.aeryen.GRECardFX;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.util.Arrays;
@@ -63,6 +65,15 @@ public class Main extends Application implements EventHandler {
 
 		try {
 			this.stageWindow = primaryStage;
+
+			this.stageWindow.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent event) {
+					Platform.runLater(() -> {
+						Platform.exit();
+					});
+				}
+			});
 
 			listSelectionRootPane = FXMLLoader.load(getClass().getResource("listSelection.fxml"));
 

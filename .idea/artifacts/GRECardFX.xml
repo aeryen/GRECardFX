@@ -9,7 +9,7 @@
         <option name="htmlParamFile" value="" />
         <option name="keypass" value="eXZvN2V5ZXMh" />
         <option name="keystore" value="E:\DOC\Android_Key\aeryen-android-key.keystore" />
-        <option name="nativeBundle" value="dmg" />
+        <option name="nativeBundle" value="all" />
         <option name="paramFile" value="" />
         <option name="selfSigning" value="false" />
         <option name="storepass" value="YWVyeWVu" />

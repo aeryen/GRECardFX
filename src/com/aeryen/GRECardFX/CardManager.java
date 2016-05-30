@@ -117,20 +117,26 @@ public class CardManager {
 	Random random = new Random();
 
 	private ArrayList<Word> drawWords(WordList wordList, int numberOfWords) {
+		boolean drawMainWord = true;
 		ArrayList<Word> wordSelection = new ArrayList<Word>(4);
 		for (int i = 0; i < numberOfWords; i++) {
-			boolean haveRemain = wordList.checkHaveRemain();
+			boolean haveRemain = wordList.checkRemainTodo();
 			if(!haveRemain) {
 				listCompleted = true;
 				mainWindowStage.setTitle("[List Completed]");
 			}
-			int result = random.nextInt(wordList.toDoList.size());
-			if (wordSelection.contains(wordList.toDoList.get(result))) { // avoid duplicate
-				numberOfWords++;
-			} else {
+			if(i==0) {  // draw main word
+				int result = random.nextInt(wordList.toDoList.size());
 				wordSelection.add(wordList.toDoList.get(result));
 			}
-
+			else { // draw remain option
+				int result = random.nextInt(wordList.CompleteList.size());
+				if (wordSelection.contains(wordList.CompleteList.get(result))) { // avoid duplicate
+					i--;
+				} else {
+					wordSelection.add(wordList.CompleteList.get(result));
+				}
+			}
 		}
 		return wordSelection;
 	}

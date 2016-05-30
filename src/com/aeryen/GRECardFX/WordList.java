@@ -9,6 +9,7 @@ import static java.lang.System.exit;
  * Created by aeryen on 4/5/2016.
  */
 public class WordList {
+	ArrayList<Word> CompleteList = null;
 	ArrayList<Word> toDoList = null;
 	ArrayList<Word> doneList = null;
 
@@ -21,17 +22,18 @@ public class WordList {
 			e.printStackTrace();
 		}
 		try {
-			toDoList = new ArrayList<Word>(120);
+			CompleteList = new ArrayList<Word>(120);
 			while ((thisLine = br.readLine()) != null) {
 //				System.out.println(thisLine);
 				Word w = new Word(thisLine);
-				toDoList.add(w);
+				CompleteList.add(w);
 
 				w.multilinePrint();
 			}
 
-			System.out.println("A total of: " + toDoList.size() + " is loaded from toDoList: " + dataFile.getName() + ".");
+			System.out.println("A total of: " + CompleteList.size() + " is loaded from toDoList: " + dataFile.getName() + ".");
 
+			toDoList.addAll(CompleteList);
 			doneList = new ArrayList<>();
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -39,7 +41,7 @@ public class WordList {
 		}
 	}
 
-	public boolean checkHaveRemain() {
+	public boolean checkRemainTodo() {
 		if(this.toDoList.size() >= 1) {
 			return true;
 		} else {
@@ -50,7 +52,7 @@ public class WordList {
 	}
 
 	public void putInToDo(Word w) {
-//		toDoList.add();
+		toDoList.add(w);
 	}
 
 	public void putInDone(Word w) {

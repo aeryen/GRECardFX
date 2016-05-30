@@ -33,6 +33,7 @@ public class WordList {
 
 			System.out.println("A total of: " + CompleteList.size() + " is loaded from toDoList: " + dataFile.getName() + ".");
 
+			toDoList = new ArrayList<>();
 			toDoList.addAll(CompleteList);
 			doneList = new ArrayList<>();
 		} catch(IOException e) {

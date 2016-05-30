@@ -1,20 +1,19 @@
 package com.aeryen.GRECardFX;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by aeryen on 4/7/2016.
@@ -27,21 +26,19 @@ public class CardManager {
 
 	Pane cardPaneRoot = null;
 
-	WordList wordList = null;
+	public WordList wordList = null;
 
 	CardController controller = null;
-
-	Timer timer;
 
 	public static final int WINDOW_WIDTH = 450;
 	public static final int WINDOW_HEIGHT = 280;
 
-	final long INTERVAL = 1800000;
 	public static final int NUMBER_OF_OPTION = 4;
-	public static final int WORD_PER_SESSION = 30;
+	public static final int WORD_PER_SESSION = 15;
+
+	TimerManager ts = null;
 
 	public CardManager(String listName, Stage stageWindow) {
-		Platform.setImplicitExit(false);
 		this.mainWindowStage = stageWindow;
 		mainWindowStage.hide();
 		try {
@@ -54,34 +51,36 @@ public class CardManager {
 
 			basicCardScene = new Scene(cardPaneRoot, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-			mainWindowStage.setScene(basicCardScene);
-			mainWindowStage.setTitle("Card");
-
 			initWords(listName);
-			scheduleNextSession();
+
+			ts = new TimerManager(this, stageWindow);
+
+			mainWindowStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					ts.cancelTimeLine();
+					mainWindowStage.close();
+					Platform.exit();
+					System.exit(0);
+				}
+			});
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;
 		}
 	}
 
-	long delay = 1000;
+	boolean listCompleted = false;
 
-	private void scheduleNextSession() {
-		System.out.println("SCHEDULED: " + delay);
-		timer = new Timer();
-
-		timer.schedule(new TimerTask() {
-			public void run() {
-				Platform.runLater(() -> {
-					startSession();
-				});
-			}
-		}, delay);
-	}
-
-	private void startSession() {
+	public void startSession() {
 		System.out.println("SESSION STARTED");
+
+		mainWindowStage.setScene(basicCardScene);
+		if(!listCompleted) {
+			mainWindowStage.setTitle("Card");
+		} else {
+			mainWindowStage.setTitle("[List Completed]");
+		}
+
 		mainWindowStage.show();
 
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -97,8 +96,8 @@ public class CardManager {
 		mainWindowStage.setAlwaysOnTop(false);
 
 		sessionWordCounter = WORD_PER_SESSION;
-		delay = INTERVAL;
-		scheduleNextSession();
+
+		ts.oneSessionDone();
 	}
 
 
@@ -120,12 +119,18 @@ public class CardManager {
 	private ArrayList<Word> drawWords(WordList wordList, int numberOfWords) {
 		ArrayList<Word> wordSelection = new ArrayList<Word>(4);
 		for (int i = 0; i < numberOfWords; i++) {
-			int result = random.nextInt(wordList.list.size());
-			if (wordSelection.contains(wordList.list.get(result))) {
+			boolean haveRemain = wordList.checkHaveRemain();
+			if(!haveRemain) {
+				listCompleted = true;
+				mainWindowStage.setTitle("[List Completed]");
+			}
+			int result = random.nextInt(wordList.toDoList.size());
+			if (wordSelection.contains(wordList.toDoList.get(result))) { // avoid duplicate
 				numberOfWords++;
 			} else {
-				wordSelection.add(wordList.list.get(result));
+				wordSelection.add(wordList.toDoList.get(result));
 			}
+
 		}
 		return wordSelection;
 	}

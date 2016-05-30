@@ -31,7 +31,7 @@ public class Main extends Application implements EventHandler {
 			return;
 		}
 		File[] listFiles = rootFolder.listFiles();
-		System.out.println("A total of " + listFiles.length + " list files are found.");
+		System.out.println("A total of " + listFiles.length + " toDoList files are found.");
 
 		Arrays.sort(listFiles);
 		for (int i = 0; i < listFiles.length; i++) {
@@ -66,14 +66,19 @@ public class Main extends Application implements EventHandler {
 		try {
 			this.stageWindow = primaryStage;
 
-			this.stageWindow.setOnCloseRequest(new EventHandler<WindowEvent>() {
-				@Override
-				public void handle(WindowEvent event) {
-					Platform.runLater(() -> {
-						Platform.exit();
-					});
+			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					Platform.exit();
 				}
 			});
+//			this.stageWindow.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//				@Override
+//				public void handle(WindowEvent event) {
+//					Platform.runLater(() -> {
+//						Platform.exit();
+//					});
+//				}
+//			});
 
 			listSelectionRootPane = FXMLLoader.load(getClass().getResource("listSelection.fxml"));
 

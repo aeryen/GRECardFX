@@ -1,19 +1,14 @@
 package com.aeryen.GRECardFX;
 
-import javafx.beans.binding.Bindings;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.text.Font;
+import javafx.util.Duration;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class CardController {
 
@@ -23,12 +18,26 @@ public class CardController {
 	public Button option3;
 	public Button option4;
 
-	public int correctAnswer = -1;
+	public Label timeLabel;
+
+	public Button startNow;
+
+	public Word correctWord = null;
+	public int correctIndex = -1;
 
 	CardManager cm;
+	TimerManager ts;
 
 	public void setCardManager(CardManager cm) {
 		this.cm = cm;
+	}
+
+	public void setTimerManager(TimerManager ts) {
+		this.ts = ts;
+	}
+
+	public void handleStartNow(ActionEvent event) {
+		ts.finishCountDown();
 	}
 
 	private int whichButton(Button b) {
@@ -59,7 +68,10 @@ public class CardController {
 		option4.setStyle("-fx-background-color: inherit");
 	}
 
+	boolean madeMistake = false;
 	public void wordEnglishToChineseTest(Word mainWord, Word alt1, Word alt2, Word alt3) {
+		correctWord = mainWord;
+
 		this.detail.setText(mainWord.english);
 		ArrayList<String> options = new ArrayList<>(4);
 		options.add(mainWord.chinese);
@@ -68,27 +80,47 @@ public class CardController {
 		options.add(alt3.chinese);
 
 		Collections.shuffle(options);
-		correctAnswer = options.indexOf(mainWord.chinese);
+		correctIndex = options.indexOf(mainWord.chinese);
 
 		this.detail.setText(mainWord.english);
 		setButton(options);
+
+		madeMistake = false;
+	}
+
+	public void delayContinue() {
+		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+			resetButtonStyle();
+			cm.continueTest();
+		}));
+		timeline.setCycleCount(1);
+		timeline.play();
 	}
 
 	public void handleAnswer(ActionEvent event) {
 		Button sourceButton = (Button) event.getSource();
 		int buttonNumber = whichButton(sourceButton);
-		if (buttonNumber == correctAnswer) {
+		if (buttonNumber == correctIndex) {
 			//get back to card manager
 			System.out.println("Correct.");
+			sourceButton.setStyle("-fx-background-color: darkgreen");
 
-			resetButtonStyle();
-
-			cm.continueTest();
+			if (madeMistake) {
+				delayContinue();
+			} else {
+				cm.wordList.putInDone(correctWord);
+				resetButtonStyle();
+				cm.continueTest();
+			}
 		} else {
 			//no, wrong answer
 			System.out.println("Wrong.");
-
+			madeMistake = true;
 			sourceButton.setStyle("-fx-background-color: darkred");
 		}
+	}
+
+	public void setTimerLabel(String text) {
+		timeLabel.setText(text);
 	}
 }
